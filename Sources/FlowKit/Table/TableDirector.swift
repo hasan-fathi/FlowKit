@@ -425,7 +425,9 @@ public extension TableDirector {
 		return self.sections[section].footerTitle
 	}
 	
-	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {//MARK: hasanChange
+            return CGFloat.leastNonzeroMagnitude
+
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
             return (self.headerHeight ?? UITableView.automaticDimension)
@@ -433,7 +435,9 @@ public extension TableDirector {
 		return height
 	}
 	
-	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {//MARK: hasanChange
+            return CGFloat.leastNonzeroMagnitude
+
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
             return (self.footerHeight ?? UITableView.automaticDimension)
