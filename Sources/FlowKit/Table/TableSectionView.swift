@@ -34,7 +34,8 @@ open class TableSectionView<T: HeaderFooterProtocol>: TableHeaderFooterProtocol,
 	
 	public var viewClass: AnyClass { return T.self }
 	public var reuseIdentifier: String { return T.reuseIdentifier }
-	public var registerAsClass: Bool { return T.registerAsClass }
+    public var registerAsClass: Bool { return T.registerAsClass }
+    public var tagg: Int?
 	
 	public var description: String {
 		return "CollectionSectionView<\(String(describing: type(of: T.self)))>"
