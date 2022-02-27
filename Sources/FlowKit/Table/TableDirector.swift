@@ -426,23 +426,36 @@ public extension TableDirector {
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {//MARK: hasanChange
-            return CGFloat.leastNonzeroMagnitude
 
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
-            return (self.headerHeight ?? UITableView.automaticDimension)
+                    return CGFloat.leastNonzeroMagnitude
+print("hasanChange heightForHeaderInSection: \((self.headerHeight ?? UITableView.automaticDimension))")
+//            return (self.headerHeight ?? UITableView.automaticDimension)
+                    return CGFloat.leastNonzeroMagnitude
+
 		}
-		return height
+            print("hasanChange heightForHeaderInSection: \(height)")
+            return CGFloat.leastNonzeroMagnitude
+
+//		return height
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {//MARK: hasanChange
-            return CGFloat.leastNonzeroMagnitude
 
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
-            return (self.footerHeight ?? UITableView.automaticDimension)
+                    print("hasanChange heightForFooterInSection: \((self.footerHeight ?? UITableView.automaticDimension))")
+
+//            return (self.footerHeight ?? UITableView.automaticDimension)
+                    return CGFloat.leastNonzeroMagnitude
+
 		}
-		return height
+            print("hasanChange heightForFooterInSection: \(height)")
+
+            return CGFloat.leastNonzeroMagnitude
+
+//		return height
 	}
 	
 	public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
