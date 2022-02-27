@@ -402,7 +402,7 @@ public extension TableDirector {
 	}
 	
 	// Header & Footer
-	
+        private static let headerTag = 987248
 	public func tableView(_ tableView: UITableView, viewForHeaderInSection sectionIdx: Int) -> UIView? {
 		guard let header = sections[sectionIdx].headerView else { return nil }
 		let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.registerView(header))
@@ -424,39 +424,31 @@ public extension TableDirector {
 	public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		return self.sections[section].footerTitle
 	}
-	
-	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {//MARK: hasanChange
-
-		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
-		guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
-                    return CGFloat.leastNonzeroMagnitude
-print("hasanChange heightForHeaderInSection: \((self.headerHeight ?? UITableView.automaticDimension))")
-//            return (self.headerHeight ?? UITableView.automaticDimension)
-                    return CGFloat.leastNonzeroMagnitude
-
-		}
-            print("hasanChange heightForHeaderInSection: \(height)")
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {//MARK: hasanChange
+        if tableView.tag != TableDirector.headerTag {
             return CGFloat.leastNonzeroMagnitude
-
-//		return height
-	}
-	
-	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {//MARK: hasanChange
-
-		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
-		guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
-                    print("hasanChange heightForFooterInSection: \((self.footerHeight ?? UITableView.automaticDimension))")
-
-//            return (self.footerHeight ?? UITableView.automaticDimension)
-                    return CGFloat.leastNonzeroMagnitude
-
-		}
-            print("hasanChange heightForFooterInSection: \(height)")
-
+        }
+        let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
+        guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
             return CGFloat.leastNonzeroMagnitude
-
-//		return height
-	}
+            return (self.headerHeight ?? UITableView.automaticDimension)
+        }
+        
+        return height
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {//MARK: hasanChange
+        if tableView.tag != TableDirector.headerTag {
+            return CGFloat.leastNonzeroMagnitude
+        }
+        let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
+        guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
+            
+            return (self.footerHeight ?? UITableView.automaticDimension)
+        }
+        return height
+    }
 	
 	public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
