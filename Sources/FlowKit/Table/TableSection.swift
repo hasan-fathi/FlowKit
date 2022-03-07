@@ -50,32 +50,38 @@ open class TableSection: ModelProtocol {
 	}
 	
 	/// Title of the header; if `headerView` is set this value is ignored.
-	public var headerTitle: String?
-	
+    public var headerTitle: String?
+    
+    public var _headerHeight: CGFloat?
+    public var _footerHeight: CGFloat?
+
 	/// Title of the footer; if `footerView` is set this value is ignored.
 	public var footerTitle: String?
 	
 	/// View of the header
 	public var headerView: TableHeaderFooterProtocol?
-//    {
-//		willSet {
-//			self.headerView?.section = nil
-//		}
-//		didSet {
-//			self.headerView?.section = self
-//		}
-//	}
+    {
+		willSet {
+			self.headerView?.section = nil
+		}
+		didSet {
+			self.headerView?.section = self
+                    self._headerHeight = (self.headerView?.viewClass as? UIView)?.frame.size.height
+		}
+	}
 	
 	/// View of the footer
 	public var footerView: TableHeaderFooterProtocol?
-//    {
-//		willSet {
-//			self.footerView?.section = nil
-//		}
-//		didSet {
-//			self.footerView?.section = self
-//		}
-//	}
+    {
+		willSet {
+			self.footerView?.section = nil
+		}
+		didSet {
+			self.footerView?.section = self
+                    self._footerHeight = (self.footerView?.viewClass as? UIView)?.frame.size.height
+
+		}
+	}
 	
 	/// Optional index title for this section (used for `sectionIndexTitles(for: UITableView)`)
 	public var indexTitle: String?
