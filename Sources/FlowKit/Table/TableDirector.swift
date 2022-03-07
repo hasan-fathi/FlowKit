@@ -481,6 +481,7 @@ public extension TableDirector {
 	}
 	
 	public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+            view.backgroundColor = .red
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .header, view: view, section: section, table: tableView)
 		self.on.willDisplayHeader?( (view,section,tableView) )
