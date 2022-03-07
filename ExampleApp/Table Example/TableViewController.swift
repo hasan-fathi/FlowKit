@@ -58,7 +58,7 @@ class TableViewController: UIViewController {
 		}
 		
 		
-		let section = TableSection(headerView: header, footerView: footer, models: articles)
+		let section = TableSection(headerView: header,headerHeight: 150, footerView: footer,footerHeight: 30, models: articles)
 		return section
 	}
 

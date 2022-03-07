@@ -67,7 +67,6 @@ open class TableSection: ModelProtocol {
 		}
 		didSet {
 			self.headerView?.section = self
-                    self._headerHeight = (self.headerView?.viewClass as? UIView)?.frame.size.height
 		}
 	}
 	
@@ -79,8 +78,6 @@ open class TableSection: ModelProtocol {
 		}
 		didSet {
 			self.footerView?.section = self
-                    self._footerHeight = (self.footerView?.viewClass as? UIView)?.frame.size.height
-
 		}
 	}
 	
@@ -116,21 +113,17 @@ open class TableSection: ModelProtocol {
 	///   - headerView: header view
 	///   - footerView: footer view
 	///   - models: models to add (`nil` means empty array)
-	public convenience init(headerView: TableHeaderFooterProtocol?,
-							footerView: TableHeaderFooterProtocol?,
-							models: [ModelProtocol]? = nil) {
-		self.init(models)
-		self.headerView = headerView
-            if headerView == nil {
-                _headerHeight = 0
-            }
-		self.footerView = footerView
-            if footerView == nil {
-                _footerHeight = 0
-            }
-	}
-	
-	/// Hash identifier of the section.
+    public convenience init(headerView: TableHeaderFooterProtocol?,headerHeight: CGFloat?,
+                            footerView: TableHeaderFooterProtocol?,footerHeight: CGFloat?,
+                            models: [ModelProtocol]? = nil) {
+        self.init(models)
+        self.headerView = headerView
+        self._headerHeight = headerHeight
+        self._footerHeight = footerHeight
+        self.footerView = footerView
+    }
+    
+        /// Hash identifier of the section.
 	public var modelID: Int {
 		return self.UUID.hashValue
 	}
