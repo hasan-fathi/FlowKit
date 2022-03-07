@@ -63,6 +63,7 @@ open class TableSection: ModelProtocol {
     {
 		willSet {
 			self.headerView?.section = nil
+                    self._headerHeight = nil
 		}
 		didSet {
 			self.headerView?.section = self
@@ -120,7 +121,13 @@ open class TableSection: ModelProtocol {
 							models: [ModelProtocol]? = nil) {
 		self.init(models)
 		self.headerView = headerView
+            if headerView == nil {
+                _headerHeight = 0
+            }
 		self.footerView = footerView
+            if footerView == nil {
+                _footerHeight = 0
+            }
 	}
 	
 	/// Hash identifier of the section.
