@@ -504,6 +504,7 @@ public extension TableDirector {
                 //definete
             view.tintColor = tableView.backgroundColor
             (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
+            (view as? UITableViewHeaderFooterView)?.textLabel?.backgroundColor = .clear
             
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .header, view: view, section: section, table: tableView)
@@ -515,6 +516,7 @@ public extension TableDirector {
             //definete
             view.tintColor = tableView.backgroundColor
             (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
+            (view as? UITableViewHeaderFooterView)?.textLabel?.backgroundColor = .clear
 
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .footer, view: view, section: section, table: tableView)
