@@ -56,24 +56,26 @@ open class TableSection: ModelProtocol {
 	public var footerTitle: String?
 	
 	/// View of the header
-	public var headerView: TableHeaderFooterProtocol? {
-		willSet {
-			self.headerView?.section = nil
-		}
-		didSet {
-			self.headerView?.section = self
-		}
-	}
+	public var headerView: TableHeaderFooterProtocol?
+//    {
+//		willSet {
+//			self.headerView?.section = nil
+//		}
+//		didSet {
+//			self.headerView?.section = self
+//		}
+//	}
 	
 	/// View of the footer
-	public var footerView: TableHeaderFooterProtocol? {
-		willSet {
-			self.footerView?.section = nil
-		}
-		didSet {
-			self.footerView?.section = self
-		}
-	}
+	public var footerView: TableHeaderFooterProtocol?
+//    {
+//		willSet {
+//			self.footerView?.section = nil
+//		}
+//		didSet {
+//			self.footerView?.section = self
+//		}
+//	}
 	
 	/// Optional index title for this section (used for `sectionIndexTitles(for: UITableView)`)
 	public var indexTitle: String?
