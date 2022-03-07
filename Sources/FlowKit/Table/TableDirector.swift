@@ -446,6 +446,8 @@ public extension TableDirector {
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return 0.0
+
             if let value = footerHeights[section] {return value}
             
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
