@@ -23,6 +23,7 @@ class TableViewController: UIViewController {
 			
 			return TableReloadAnimations.default()
 		}, onEnd: nil)
+            self.tableView?.addTopBounceAreaView(color: .blue)
 		
 	}
 	
@@ -107,4 +108,17 @@ public class Article: ModelProtocol {
 public class TableArticleCell: UITableViewCell {
 	@IBOutlet public var titleLabel: UILabel?
 	@IBOutlet public var subtitleLabel: UILabel?
+}
+
+extension UITableView {
+
+    func addTopBounceAreaView(color: UIColor = .white) {
+        var frame = UIScreen.main.bounds
+        frame.origin.y = -frame.size.height
+
+        let view = UIView(frame: frame)
+        view.backgroundColor = color
+
+        self.addSubview(view)
+    }
 }

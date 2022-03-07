@@ -411,7 +411,7 @@ public extension TableDirector {
 	public func tableView(_ tableView: UITableView, viewForHeaderInSection sectionIdx: Int) -> UIView? {
 		guard let header = sections[sectionIdx].headerView else { return nil }
 		let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.registerView(header))
-            view?.backgroundView?.backgroundColor = .clear
+            
 		let _ = (header as? AbstractTableHeaderFooterItem)?.dispatch(.dequeue, type: .header, view: view, section: sectionIdx, table: tableView)
 
 		return view
@@ -420,7 +420,6 @@ public extension TableDirector {
 	public func tableView(_ tableView: UITableView, viewForFooterInSection sectionIdx: Int) -> UIView? {
 		guard let footer = sections[sectionIdx].footerView else { return nil }
 		let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.registerView(footer))
-            view?.backgroundView?.backgroundColor = .clear
 
 		let _ = (footer as? AbstractTableHeaderFooterItem)?.dispatch(.dequeue, type: .footer, view: view, section: sectionIdx, table: tableView)
             footerHeights.updateValue((view?.frame.height ?? 0.0), forKey: sectionIdx)
@@ -501,14 +500,22 @@ public extension TableDirector {
 	}
 	
 	public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//            view.backgroundColor = .clear
+            
+                //definete
+            view.tintColor = tableView.backgroundColor
+            (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
+            
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .header, view: view, section: section, table: tableView)
 		self.on.willDisplayHeader?( (view,section,tableView) )
 	}
 	
 	public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-//            view.backgroundColor = .clear
+            
+            //definete
+            view.tintColor = tableView.backgroundColor
+            (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
+
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .footer, view: view, section: section, table: tableView)
 		self.on.willDisplayFooter?( (view,section,tableView) )
