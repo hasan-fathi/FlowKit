@@ -36,7 +36,7 @@ public extension UITableView {
 	
 	/// Return director associated with collection.
 	/// If not exist it will be created and assigned automatically.
-	public var director: TableDirector {
+        var director: TableDirector {
 		get {
 			return getAssociatedValue(key: UITableView.DIRECTOR_KEY,
 									  object: self,

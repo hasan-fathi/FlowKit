@@ -33,7 +33,7 @@ import UIKit
 // MARK: - TableDirector Events
 public extension TableDirector {
 	
-	public struct Events {
+        struct Events {
 		typealias HeaderFooterEvent = (view: UIView, section: Int, table: UITableView)
 
 		var sectionForSectionIndex: ((_ title: String, _ index: Int) -> Int)? = nil
@@ -50,7 +50,7 @@ public extension TableDirector {
 // MARK: - TableSection Events
 public extension TableSectionView {
 	
-	public struct Events<T> {
+        struct Events<T> {
 		public var dequeue: ((Context<T>) -> Void)? = nil
 		public var height: ((Context<T>) -> CGFloat)? = nil
 		public var estimatedHeight: ((Context<T>) -> CGFloat)? = nil
@@ -66,7 +66,7 @@ public extension TableSectionView {
 // MARK: - TableAdapter Events
 public extension TableAdapter {
 	
-	public struct Events<M,C> {
+        struct Events<M,C> {
 		public typealias EventContext = Context<M,C>
 		
 		public var dequeue : ((EventContext) -> (Void))? = nil

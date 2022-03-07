@@ -26,7 +26,7 @@
 //	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //	THE SOFTWARE.
-//hasanChange
+
 import Foundation
 import UIKit
 
@@ -224,7 +224,7 @@ public extension TableAdapter {
 	/// Context of the adapter.
 	/// A context is sent when an event is fired and includes type-safe informations (context)
 	/// related to triggered event.
-	public struct Context<M,C> {
+        struct Context<M,C> {
 
 		/// Parent table
 		public private(set) weak var table: UITableView?
