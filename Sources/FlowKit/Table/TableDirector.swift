@@ -71,7 +71,10 @@ public class TableDirector: NSObject, UITableViewDelegate, UITableViewDataSource
 	
 	/// Events for UIScrollViewDelegate
 	public var onScroll: ScrollViewEvents? = ScrollViewEvents()
-	
+    
+    internal var headerHeights:[Int:CGFloat] = [:]
+    internal var footerHeights:[Int:CGFloat] = [:]
+
 	/// Set the height of the row.
 	public var rowHeight: RowHeight = .`default` {
 		didSet {
@@ -401,12 +404,12 @@ public extension TableDirector {
 		return cell
 	}
 	
-	// Header & Footer
-        private static let headerTag = 987248
         func tableView(_ tableView: UITableView, viewForHeaderInSection sectionIdx: Int) -> UIView? {
 		guard let header = sections[sectionIdx].headerView else { return nil }
 		let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.registerView(header))
 		let _ = (header as? AbstractTableHeaderFooterItem)?.dispatch(.dequeue, type: .header, view: view, section: sectionIdx, table: tableView)
+            headerHeights.updateValue((view?.frame.height ?? 0.0), forKey: sectionIdx)
+            
 		return view
 	}
 	
@@ -414,6 +417,8 @@ public extension TableDirector {
 		guard let footer = sections[sectionIdx].footerView else { return nil }
 		let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.registerView(footer))
 		let _ = (footer as? AbstractTableHeaderFooterItem)?.dispatch(.dequeue, type: .footer, view: view, section: sectionIdx, table: tableView)
+            footerHeights.updateValue((view?.frame.height ?? 0.0), forKey: sectionIdx)
+
 		return view
 	}
 	
@@ -426,6 +431,9 @@ public extension TableDirector {
 	}
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let loadedHeight = headerHeights[section] {
+            return loadedHeight
+        }
         let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
         guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
 
@@ -436,6 +444,9 @@ public extension TableDirector {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if let loadedHeight = footerHeights[section] {
+            return loadedHeight
+        }
         let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
         guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
             
@@ -445,6 +456,9 @@ public extension TableDirector {
     }
 	
         func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+            if let loadedHeight = headerHeights[section] {
+                return loadedHeight
+            }
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		guard let estHeight = item?.dispatch(.estimatedHeight, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
 			guard let height = item?.dispatch(.height, type: .header, view: nil, section: section, table: tableView) as? CGFloat else {
@@ -456,6 +470,9 @@ public extension TableDirector {
 	}
 	
         func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+            if let loadedHeight = footerHeights[section] {
+                return loadedHeight
+            }
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		guard let height = item?.dispatch(.estimatedHeight,type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
 			guard let height = item?.dispatch(.height, type: .footer, view: nil, section: section, table: tableView) as? CGFloat else {
@@ -816,6 +833,5 @@ public extension TableDirector {
 		}
 		return identifier
 	}
-	
-	
 }
+
