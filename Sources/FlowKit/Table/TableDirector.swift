@@ -505,6 +505,11 @@ public extension TableDirector {
             view.tintColor = tableView.backgroundColor
             (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
             (view as? UITableViewHeaderFooterView)?.textLabel?.backgroundColor = .clear
+            if #available(iOS 14.0, *) {
+                (view as? UITableViewHeaderFooterView)?.backgroundConfiguration = UIBackgroundConfiguration.clear()
+            } else {
+                    // Fallback on earlier versions
+            }
             
 		let item = (self.sections[section].headerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .header, view: view, section: section, table: tableView)
@@ -516,7 +521,16 @@ public extension TableDirector {
             //definete
             view.tintColor = tableView.backgroundColor
             (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = tableView.backgroundColor
+            if let vv = (view as? UITableViewHeaderFooterView) {
+                vv.textLabel?.backgroundColor = .clear
+                vv.backgroundColor = .clear
+            }
             (view as? UITableViewHeaderFooterView)?.textLabel?.backgroundColor = .clear
+            if #available(iOS 14.0, *) {
+                (view as? UITableViewHeaderFooterView)?.backgroundConfiguration = UIBackgroundConfiguration.clear()
+            } else {
+                    // Fallback on earlier versions
+            }
 
 		let item = (self.sections[section].footerView as? AbstractTableHeaderFooterItem)
 		let _ = item?.dispatch(.willDisplay, type: .footer, view: view, section: section, table: tableView)
