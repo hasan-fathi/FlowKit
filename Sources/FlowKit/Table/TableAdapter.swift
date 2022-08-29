@@ -39,7 +39,9 @@ open class TableAdapter<M: ModelProtocol, C: CellProtocol>: TableAdapterProtocol
 	public var cellReuseIdentifier: String { return C.reuseIdentifier }
 	public var cellClass: AnyClass { return C.self }
 	public var registerAsClass: Bool { return C.registerAsClass }
-	
+        ///If you set this proprty to False, dequeue will not happen (The default value is True)
+        public var dequeueAllowed:Bool = true
+    
 	public static func == (lhs: TableAdapter<M, C>, rhs: TableAdapter<M, C>) -> Bool {
 		return 	(String(describing: lhs.modelType) == String(describing: rhs.modelType)) &&
 				(String(describing: lhs.cellType) == String(describing: rhs.cellType))
@@ -59,7 +61,7 @@ open class TableAdapter<M: ModelProtocol, C: CellProtocol>: TableAdapterProtocol
 	//MARK: TableAdaterProtocolFunctions Protocol
 	
 	func _instanceCell(in table: UITableView, at indexPath: IndexPath?) -> UITableViewCell {
-		guard let indexPath = indexPath else {
+		guard let indexPath = indexPath , dequeueAllowed else {
 			let castedCell = self.cellClass as! UITableViewCell.Type
 			let cellInstance = castedCell.init()
 			return cellInstance
